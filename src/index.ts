@@ -11,7 +11,7 @@ import { TagValues } from './constants';
 
 export const version = '2.0.0b';
 
-export const remove = (imageBinary: string): string => {
+export const removeExif = (imageBinary: string): string => {
   let bbase64Encoded = false;
   if (imageBinary.slice(0, 2) == '\xff\xd8') {
   } else if (
@@ -40,7 +40,7 @@ export const remove = (imageBinary: string): string => {
   return newBinary;
 };
 
-export const insert = (exifBinary: string, imageBinary: string): string => {
+export const insertExif = (exifBinary: string, imageBinary: string): string => {
   let base64Encoded = false;
   if (exifBinary.slice(0, 6) != '\x45\x78\x69\x66\x00\x00') {
     throw new Error('Given data is not exif.');
@@ -67,7 +67,7 @@ export const insert = (exifBinary: string, imageBinary: string): string => {
   return newBinary;
 };
 
-export const load = (binary: string): IExif => {
+export const loadExif = (binary: string): IExif => {
   let exifBinary;
   if (typeof binary == 'string') {
     if (binary.slice(0, 2) == '\xff\xd8') {
@@ -156,7 +156,7 @@ export const load = (binary: string): IExif => {
   return exifObj;
 };
 
-export const dump = (originalExifObj: IExif): string => {
+export const dumpExif = (originalExifObj: IExif): string => {
   const TIFF_HEADER_LENGTH = 8;
 
   const exifObj: IExif = _utils.copy(originalExifObj);
